@@ -4,13 +4,8 @@ require_once __DIR__ . '/../config/database.php';
 
 /**
 
- * Riceve i dati come multipart/form-data (non JSON!) perché include
- * un'immagine — guarda js/form.js: usa FormData, non JSON.stringify.
- * Per questo qui i campi si leggono da $_POST e $_FILES, non da leggiJsonBody().
- *
- * La parte di upload qui sotto è già completa e commentata: studiala,
- * perché è un meccanismo diverso da tutto ciò che hai visto finora.
- * Il TUO compito è la sezione finale: risolvere la categoria e fare la INSERT.
+ * Riceve i dati come multipart/form-data  perché include
+ * un'immagine, usa FormData, non JSON.stringify.
  */
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -19,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $utenteId = richiedeLogin(); // solo un utente loggato può creare un avvistamento
 
-// --- Campi testuali (con multipart/form-data arrivano in $_POST) ---
+//  Campi testuali (con multipart/form-data arrivano in $_POST) 
 $marca = trim($_POST['marca'] ?? '');
 $modello = trim($_POST['modello'] ?? '');
 $anno = $_POST['anno'] ?? null;
@@ -33,32 +28,30 @@ if ($marca === '' || $modello === '' || $dataAvvistamento === '') {
     rispondiErrore('Marca, modello e data sono obbligatori.');
 }
 
-// --- Upload immagine (sezione completa, studiala) ---
-if (empty($_FILES['immagine']) || $_FILES['immagine']['error'] !== UPLOAD_ERR_OK) {
+$file = $_FILES['immagine'] ?? null;
+$ext = strtolower(pathinfo($file['name'] ?? '', PATHINFO_EXTENSION));
+
+// Controlli di validazione (early exit)
+if (!$file || $file['error'] !== UPLOAD_ERR_OK) {
     rispondiErrore('Devi caricare una foto.');
 }
-
-$file = $_FILES['immagine'];
-$estensioniConsentite = ['jpg', 'jpeg', 'png', 'webp'];
-$estensione = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-
-if (!in_array($estensione, $estensioniConsentite)) {
-    rispondiErrore('Formato immagine non supportato. Usa jpg, png o webp.');
+if (!in_array($ext, ['jpg', 'jpeg', 'png', 'webp'])) {
+    rispondiErrore('Formato non supportato. Usa jpg, png o webp.');
 }
-if ($file['size'] > 5 * 1024 * 1024) { // limite 5 MB
+if ($file['size'] > 5 * 1024 * 1024) {
     rispondiErrore('L\'immagine non può superare 5 MB.');
 }
 
-// Nome file univoco, per evitare che due upload si sovrascrivano
-$nomeFile = uniqid('spot_', true) . '.' . $estensione;
-$cartellaUpload = __DIR__ . '/../../uploads/';
-if (!is_dir($cartellaUpload)) {
-    mkdir($cartellaUpload, 0755, true);
-}
-move_uploaded_file($file['tmp_name'], $cartellaUpload . $nomeFile);
+// Salvataggio
+$nomeFile = bin2hex(random_bytes(8)) . ".$ext"; // Più sicuro di uniqid()
+$cartella = __DIR__ . '/../../imgs/';
 
-// Percorso relativo salvato nel DB: il frontend lo userà come <img src="...">
-$percorsoImmagine = 'uploads/' . $nomeFile;
+if (!is_dir($cartella)) {
+    mkdir($cartella, 0755, true);
+}
+
+move_uploaded_file($file['tmp_name'], $cartella . $nomeFile);
+$percorsoImmagine = "imgs/$nomeFile";
 
 $conn = getConnessione();
 

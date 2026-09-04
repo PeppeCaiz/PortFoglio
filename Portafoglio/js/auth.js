@@ -9,6 +9,7 @@
  */
 
 async function getCurrentUser() {
+  // Recupera dal server l'utente associato al cookie di sessione.
   try {
     return await apiRequest('/auth/session.php');
   } catch (e) {
@@ -23,6 +24,7 @@ async function renderUserArea() {
   const user = await getCurrentUser();
 
   if (user) {
+    // Mostra username e collegamento per terminare la sessione.
     el.innerHTML = `
       <span class="user-chip">@${pulisciTesto(user.username)}</span>
       <span>|</span>
@@ -38,6 +40,7 @@ async function renderUserArea() {
       }
     });
   } else {
+    // Per gli utenti anonimi mostra i collegamenti di accesso e registrazione.
     el.innerHTML = `
       <a class="login-btn" href="login.html">Accedi</a>
       <span>|</span>
@@ -50,6 +53,7 @@ async function renderUserArea() {
 async function requireAuth() {
   const user = await getCurrentUser();
   if (!user) {
+    // Reindirizza alla pagina di login se non esiste una sessione valida.
     window.location.href = 'login.html';
     return false;
   }
@@ -57,6 +61,7 @@ async function requireAuth() {
 }
 
 function showFormMessage(el, message, type = 'error') {
+  // Aggiorna testo e classe CSS del messaggio mostrato sotto al form.
   el.textContent = message;
   el.className = `form-msg ${type}`;
 }
@@ -71,12 +76,14 @@ function initLoginForm() {
     const submitBtn = form.querySelector('button[type="submit"]');
     submitBtn.disabled = true;
 
+    // Costruisce il payload JSON per l'autenticazione.
     const body = {
       email: form.email.value.trim(),
       password: form.password.value
     };
 
     try {
+      // In caso di successo porta l'utente alla pagina principale.
       await apiRequest('/auth/login.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -99,6 +106,7 @@ function initRegisterForm() {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    // Blocca l'invio se le due password inserite non coincidono.
     if (form.password.value !== form.passwordConfirm.value) {
       showFormMessage(msg, 'Le due password non coincidono.', 'error');
       return;
@@ -107,6 +115,7 @@ function initRegisterForm() {
     const submitBtn = form.querySelector('button[type="submit"]');
     submitBtn.disabled = true;
 
+    // Costruisce il payload JSON per la registrazione del nuovo utente.
     const body = {
       username: form.username.value.trim(),
       email: form.email.value.trim(),
@@ -114,6 +123,7 @@ function initRegisterForm() {
     };
 
     try {
+      // Dopo la registrazione l'utente deve effettuare il login.
       await apiRequest('/auth/register.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -129,6 +139,7 @@ function initRegisterForm() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Attiva solo i componenti presenti nella pagina corrente.
   renderUserArea();
   initLoginForm();
   initRegisterForm();

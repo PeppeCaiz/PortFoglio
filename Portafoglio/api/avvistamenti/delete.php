@@ -5,7 +5,6 @@ require_once __DIR__ . '/../config/database.php';
 /**
 *  eliminare un avvistamento, solo se appartiene all'utente loggato.
 * Il frontend (js/list.js -> deleteSpot) invia l'id in JSON via POST.
-*
 */
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

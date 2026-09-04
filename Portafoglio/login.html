@@ -8,6 +8,7 @@
 <title>Accedi — Spotted.</title>
 
 
+<!-- Intestazione con navigazione, slogan e stato della sessione. -->
 <header class="site-header">
   <div class="header-inner">
     <nav class="main-nav">
@@ -28,13 +29,16 @@
 </head>
 
 <body>
+<!-- Contenitore del modulo di accesso. -->
 <div class="auth-shell">
   <div class="auth-card">
     <h1>Accedi</h1>
     <p class="auth-sub">Bentornato nel tuo garage digitale.</p>
 
+    <!-- Area usata per mostrare eventuali errori di accesso. -->
     <div class="form-msg" id="loginMsg"></div>
 
+    <!-- Il submit viene intercettato da initLoginForm() in auth.js. -->
     <form id="loginForm" novalidate>
       <div class="field">
         <label for="email">Email</label>
@@ -47,11 +51,13 @@
       <button type="submit" class="btn btn-accent">Accedi</button>
     </form>
 
+    <!-- Invita i nuovi utenti a creare un account. -->
     <p class="auth-switch">Non hai un account? <a href="register.html">Registrati</a></p>
   </div>
 </div>
 
 
+<!-- API e gestione autenticazione. -->
 <script src="js/api.js"></script>
 <script src="js/auth.js"></script>
 

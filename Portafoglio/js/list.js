@@ -1,7 +1,6 @@
 /**
  * list.js
  * Popola i filtri, carica gli avvistamenti e li rende come card.
- * Attivo solo su index.html.
  */
 
 
@@ -11,30 +10,37 @@ async function loadCategorie() {
 
   let categorie;
   try {
-    categorie = await apiRequest('/categorie/list.php');
+    // Recupera dal backend le categorie disponibili per il filtro.
+    categorie = await apiRequest('/categorie/list_cat.php');
   } catch (e) {
     return; // i filtri restano con la sola opzione "Tutte"
   }
 
   categorie.forEach(cat => {
+    // Aggiunge ogni categoria come opzione del menu.
     const opt = document.createElement('option');
     opt.value = cat.nome;
     opt.textContent = cat.nome;
     select.appendChild(opt);
   });
 }
+
+// Recupera gli avvistamenti applicando i filtri selezionati.
 async function fetchAvvistamenti(filters) {
   return apiRequest(`/avvistamenti/list.php${buildQuery(filters)}`);
 }
 
 function cardTemplate(item, currentUser = null) {
+  // Determina se l'utente corrente può modificare o eliminare la card.
   const isOwner = item.username === currentUser;
 
+  // Usa l'immagine dell'avvistamento oppure un segnaposto.
   const photoInner = item.immagine
     ? `<img src="${pulisciTesto(item.immagine)}" alt="${pulisciTesto(item.marca)} ${pulisciTesto(item.modello)}">`
     : `<img src="imgs/placeholder.png" alt="Immagine non disponibile">`;
 
   return `
+    <!-- Card di un singolo avvistamento. -->
     <article class="spot-card" data-id="${item.id}">
       <div class="spot-photo">
         ${photoInner}
@@ -66,10 +72,12 @@ function cardTemplate(item, currentUser = null) {
 }
 
 async function updateSpot(id) {
+  // Apre il form di modifica passando l'identificativo nell'URL.
   window.location.href = `edit_card.html?id=${encodeURIComponent(id)}`;
 }
 
 async function deleteSpot(id) {
+  // Chiede conferma prima di eliminare definitivamente l'avvistamento.
   if (!confirm('Eliminare questo avvistamento?')) return;
   try {
     await apiRequest('/avvistamenti/delete.php', {
@@ -88,6 +96,7 @@ async function renderCards(filters = {}) {
   const emptyState = document.getElementById('emptyState');
   const resultCount = document.getElementById('resultCount');
 
+  // Mostra uno stato temporaneo mentre i dati vengono caricati.
   grid.innerHTML = '<div class="loading-row">Caricamento avvistamenti…</div>';
   emptyState.hidden = true;
 
@@ -101,14 +110,17 @@ async function renderCards(filters = {}) {
   }
 
   if (!items || items.length === 0) {
+    // Mostra lo stato vuoto quando nessun elemento soddisfa i filtri.
     grid.innerHTML = '';
     emptyState.hidden = false;
     resultCount.textContent = '';
     return;
   }
+  // Ricava l'utente corrente per mostrare le azioni solo al proprietario.
   const userChip = document.querySelector('.user-chip');
   const currentUser = userChip ? userChip.textContent.substring(1) : null;
 
+  // Ordina gli avvistamenti dal più recente al più vecchio.
   items.sort((a, b) => new Date(b.data_avvistamento) - new Date(a.data_avvistamento));
   resultCount.textContent = `${items.length} avvistament${items.length === 1 ? 'o' : 'i'}`;
   grid.innerHTML = items.map(item => cardTemplate(item, currentUser)).join('');
@@ -125,6 +137,7 @@ async function renderCards(filters = {}) {
 }
 
 function currentFilters(form) {
+  // Raccoglie i valori attuali del modulo di ricerca.
   return {
     marca: form.marca.value.trim(),
     categoria: form.categoria.value,
@@ -137,10 +150,11 @@ function currentFilters(form) {
 
 document.addEventListener('DOMContentLoaded', () => {
   const grid = document.getElementById('cardGrid');
-  if (!grid) return; // non siamo su index.html
+  if (!grid) return; // La pagina non contiene la griglia degli avvistamenti.
 
   const filterForm = document.getElementById('filterForm');
 
+  // Carica categorie e card iniziali.
   loadCategorie();
   renderCards();
 
@@ -150,6 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.getElementById('resetFilters').addEventListener('click', () => {
+    // Attende il reset nativo prima di ricaricare tutti gli avvistamenti.
     setTimeout(() => renderCards(), 0); // dopo il reset nativo del form
   });
 });

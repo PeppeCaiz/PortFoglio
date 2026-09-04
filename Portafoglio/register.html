@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Registrati — Spotted.</title>
 
+<!-- Intestazione condivisa con navigazione e area utente. -->
 <header class="site-header">
   <div class="header-inner">
     <nav class="main-nav">
@@ -27,13 +28,16 @@
 </head>
 
 <body>
+<!-- Contenitore della registrazione del nuovo utente. -->
 <div class="auth-shell">
   <div class="auth-card">
     <h1>Crea un account</h1>
     <p class="auth-sub">Inizia a catalogare le tue scoperte su quattro ruote.</p>
 
+    <!-- Messaggi di validazione o risposta del server. -->
     <div class="form-msg" id="registerMsg"></div>
 
+    <!-- Il form viene gestito da initRegisterForm() in auth.js. -->
     <form id="registerForm" novalidate>
       <div class="field">
         <label for="username">Nome utente</label>
@@ -54,16 +58,15 @@
       <button type="submit" class="btn btn-accent">Registrati</button>
     </form>
 
+    <!-- Collegamento alla pagina di accesso per gli utenti gia registrati. -->
     <p class="auth-switch">Hai già un account? <a href="login.html">Accedi</a></p>
   </div>
 </div>
 
 
+<!-- API e gestione autenticazione. -->
 <script src="js/api.js"></script>
 <script src="js/auth.js"></script>
-
-
-
 
 </body>
 </html>

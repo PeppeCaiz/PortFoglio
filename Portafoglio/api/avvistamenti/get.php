@@ -4,8 +4,7 @@ require_once __DIR__ . '/../config/database.php';
 
 /**
 
- * restituire il dettaglio di UN singolo avvistamento,
- * dato il suo id in query string: /api/avvistamenti/get.php?id=5
+ * restituire il dettaglio di UN singolo avvistamento, dato il suo id 
 **/
 
 $conn = getConnessione();

@@ -1,32 +1,34 @@
 <!DOCTYPE html>
 <html lang="it">
+  <meta charset="UTF-8">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Spotted. — Registro avvistamenti</title>
-<link rel="stylesheet" href="css/index.css?v=2">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spotted. — Registro avvistamenti</title>
+  <link rel="stylesheet" href="css/index.css?v=2">
 
-<header class="site-header">
-  <div class="header-inner">
-    <nav class="main-nav">
-      <h2 class="logo">Spotted</h2>
-      <a href="index.html" >Home</a>
-      <a href="nuovo_av.html">Nuovo avvistamento</a>
-      <a href="about.html" class="active">About me</a>
-    </nav>
-    <div class="user-area"  id="userArea"></div>
-
-  </div>
-  <section class="hero">
-    <p class="hero-sub">Il registro degli avvistamenti, cataloga ogni auto rara che incroci.</p>
-  </section>
-</header>
+  <!-- Intestazione, navigazione e area aggiornata in base alla sessione. -->
+  <header class="site-header">
+    <div class="header-inner">
+      <nav class="main-nav">
+        <h2 class="logo">Spotted</h2>
+        <a href="index.html" >Home</a>
+        <a href="nuovo_av.html">Nuovo avvistamento</a>
+        <a href="about.html" class="active">About me</a>
+      </nav>
+      <!-- auth.js inserisce qui login, registrazione o logout. -->
+      <div class="user-area"  id="userArea"></div>
+    </div>
+    <section class="hero">
+      <p class="hero-sub">Il registro degli avvistamenti, cataloga ogni auto rara che incroci.</p>
+    </section>
+  </header>
 </head>
 
 
 <body>
+<!-- Area principale con ricerca e galleria degli avvistamenti. -->
 <section class="auto">
-
+  <!-- I valori del form vengono trasformati in parametri dalla funzione currentFilters(). -->
   <section class="filter-bar" aria-label="Filtri di ricerca">
     <form id="filterForm" class="filter-form">
     <div class="filter-field">
@@ -58,16 +60,17 @@
     <button type="submit" class="btn btn-accent">Filtra</button>
     <button type="reset" class="btn btn-ghost" id="resetFilters">Reset</button>
   </form>
+  <!-- Numero di risultati aggiornato da list.js. -->
   <div class="gallery-meta">
     <span id="resultCount" class="result-count"></span>
   </div>
 </section>
 
+<!-- Galleria popolata dinamicamente da list.js. -->
 <main class="gallery-main">
-
-
+  <!-- Le card vengono inserite in questa griglia. -->
   <div id="cardGrid" class="card-grid" aria-live="polite"></div>
-
+  <!-- Stato mostrato quando la ricerca non restituisce risultati. -->
   <div id="emptyState" class="empty-state" hidden>
     <img src="imgs/placeholder.png" alt="Immagine non disponibile">
     <h3>Il garage è vuoto</h3>
@@ -81,6 +84,7 @@
 </footer>
 
 
+<!-- Script condivisi e script specifico per filtri e card. -->
 <script src="js/api.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/form.js"></script>

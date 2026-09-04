@@ -2,15 +2,13 @@
 /**
  * helpers.php
  * Funzioni condivise da tutti gli endpoint dell'API.
- * Ogni file in api/* .php deve iniziare includendo questo file.
  */
 
 session_start(); // deve essere chiamato prima di qualunque output, gestisce il cookie di sessione
 
 header('Content-Type: application/json; charset=utf-8');
 
-// Se in sviluppo il frontend gira su una porta diversa dal backend
-// (es. Live Server su :5500 e PHP su :8000), scommenta e adatta queste righe:
+
 header('Access-Control-Allow-Origin:http://localhost/app/Portafoglio');
 header('Access-Control-Allow-Credentials: true');
 

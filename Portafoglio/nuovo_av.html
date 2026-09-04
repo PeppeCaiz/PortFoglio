@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Spotted. — Registro avvistamenti</title>
 
+<!-- Intestazione del sito e area aggiornata in base alla sessione utente. -->
 <header class="site-header">
   <div class="header-inner">
     <nav class="main-nav">
@@ -25,14 +26,18 @@
 
 <body>
 
+<!-- Form per creare un nuovo avvistamento o modificare quello indicato nell'URL. -->
 <main class="form-card">
   <h1>Registra un nuovo avvistamento</h1>
   <p class="page-sub">Carica una foto e i dettagli dell'auto che hai incrociato.</p>
 
+  <!-- Messaggi mostrati durante la validazione o l'invio. -->
   <div class="form-msg" id="newSpotMsg"></div>
 
+  <!-- form.js gestisce campi, anteprima immagine, drag & drop e invio. -->
   <form id="newSpotForm" novalidate>
 
+    <!-- Area per la selezione dell'immagine e relativa anteprima. -->
     <label class="foto"  for="immagine">
       <span>Foto</span>
     </label>
@@ -45,6 +50,7 @@
       <button type="button" class="remove-image" aria-label="Rimuovi immagine">✕</button>
     </div>
 
+    <!-- Dati descrittivi dell'auto avvistata. -->
     <div class="form-grid">
       <div class="marca">
         <label for="marca">Marca</label>
@@ -82,6 +88,7 @@
       </div>
     </div>
 
+    <!-- Azioni finali del form. -->
     <div class="form-actions">
       <a href="index.html" class="btn btn-ghost">Annulla</a>
       <button type="submit" class="btn btn-accent">Salva avvistamento</button>
@@ -90,6 +97,7 @@
 </main>
 
 
+<!-- Script caricati in ordine: API, autenticazione e comportamento del form. -->
 <script src="js/api.js"></script>
 <script src="js/auth.js"></script>
 <script src="js/form.js"></script>

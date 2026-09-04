@@ -3,10 +3,6 @@
  * database.php
  * Crea e restituisce una connessione PDO al database MySQL.
  *
- * COSA DEVI FARE TU:
- * Se usi XAMPP/MAMP in locale, questi valori di default vanno quasi
- * sempre bene così come sono (utente "root", password vuota).
- * Se il tuo ambiente è diverso, modificali qui sotto.
  */
 
 $DB_HOST = 'localhost';
@@ -26,7 +22,6 @@ function getConnessione() {
         ]);
     } catch (PDOException $e) {
         // Se la connessione fallisce, rispondiamo comunque in JSON
-        // (non con la pagina di errore HTML di default di PHP).
         http_response_code(500);
         header('Content-Type: application/json');
         echo json_encode(['success' => false, 'error' => 'Connessione al database fallita: ' . $e->getMessage()]);
