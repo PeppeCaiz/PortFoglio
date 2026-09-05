@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spotted. — Registro avvistamenti</title>
+<link rel="stylesheet" href="css/index.css">
+
+<header class="site-header">
+  <div class="header-inner">
+    <nav class="main-nav">
+      <h2 class="logo">Spotted</h2>
+      <a href="index.html" >Home</a>
+      <a href="nuovo_av.html">Nuovo avvistamento</a>
+      <a href="about.html" class="active">About me</a>
+    </nav>
+    <div class="user-area"  id="userArea"></div>
+
+  </div>
+  <section class="hero">
+    <p class="hero-sub">Il registro degli avvistamenti, cataloga ogni auto rara che incroci.</p>
+  </section>
+</header>
+</head>
+
+
+<body>
+<section class="auto">
+
+  <section class="filter-bar" aria-label="Filtri di ricerca">
+    <form id="filterForm" class="filter-form">
+    <div class="filter-field">
+      <label for="filterMarca">Marca</label>
+      <input type="text" id="filterMarca" name="marca" placeholder="Es. Ferrari" autocomplete="off">
+    </div>
+    <div class="filter-field">
+      <label for="filterCategoria">Categoria</label>
+      <select id="filterCategoria" name="categoria">
+        <option value="">Tutte</option>
+      </select>
+    </div>
+    <div class="filter-field">
+      <label for="filterLuogo">Luogo</label>
+      <input type="text" id="filterLuogo" name="luogo" placeholder="Es. Milano" autocomplete="off">
+    </div>
+    <div class="filter-field">
+      <label for="filterUsername">Postata Da</label>
+      <input type="text" id="filterUsername" name="username" placeholder="Es. user01" autocomplete="off">
+    </div>
+    <div class="filter-field">
+      <label for="filterDataDa">Dal</label>
+      <input type="date" id="filterDataDa" name="data_da">
+    </div>
+    <div class="filter-field">
+      <label for="filterDataA">Al</label>
+      <input type="date" id="filterDataA" name="data_a">
+    </div>
+    <button type="submit" class="btn btn-accent">Filtra</button>
+    <button type="reset" class="btn btn-ghost" id="resetFilters">Reset</button>
+  </form>
+  <div class="gallery-meta">
+    <span id="resultCount" class="result-count"></span>
+  </div>
+</section>
+
+<main class="gallery-main">
+
+
+  <div id="cardGrid" class="card-grid" aria-live="polite"></div>
+
+  <div id="emptyState" class="empty-state" hidden>
+    <svg viewBox="0 0 64 40" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+      <path d="M6 27 L10 15 Q12 11 18 11 H44 Q50 11 52 15 L58 27" stroke-width="2" stroke-linejoin="round"/>
+      <rect x="4" y="27" width="56" height="7" rx="2" stroke-width="2"/>
+      <circle cx="16" cy="34" r="4" stroke-width="2"/>
+      <circle cx="48" cy="34" r="4" stroke-width="2"/>
+    </svg>
+    <h3>Il garage è vuoto</h3>
+    <p>Nessun avvistamento corrisponde ai filtri. Prova a modificarli o aggiungine uno nuovo.</p>
+  </div>
+</main>
+</section>
+
+<footer class="site-footer">
+  <p>Progetto didattico — Registro avvistamenti auto di lusso.</p>
+</footer>
+
+<script src="js/auth.js"></script>
+<script src="js/api.js"></script>
+<script src="js/form.js?v=2"></script>
+<script src="js/list.js?v=2"></script>
+</body>
+</html>

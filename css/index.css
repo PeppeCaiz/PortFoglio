@@ -1,0 +1,337 @@
+:root {
+  --color-1: rgb(4, 51, 83);
+  --color-2: rgb(24, 164, 224);
+  --color-3: rgb(175, 228, 230);
+  --color-4: rgb(185, 206, 224);
+}
+
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  line-height: 1.6;
+  background-color: var(--color-3); 
+  color: var(--color-2);
+  
+}
+
+/* 
+   HEADER & NAVIGATION
+ */
+.site-header {
+  background-color: var(--color-1);
+  color: var(--color-3);
+  padding: 1rem 2rem;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.main-nav a {
+  color: var(--color-3);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+  color: #ffffff;
+}
+
+.user-area{
+  display: flex;
+  gap: 3px;
+  align-items: center;
+
+
+}
+.login-btn , .register-btn, .logout-Link{
+  display: flex;
+  gap: 12px;
+  color: var(--color-3);
+  align-items: center;
+  padding: 4px;
+  margin: 3px;
+  border: 2px solid var(--color-3);
+  text-decoration: none;
+}
+
+
+.hero {
+  max-width: 1200px;
+  margin: 0.5rem auto 0;
+}
+
+.hero-sub {
+  margin: 0;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+/* LAYOUT PRINCIPALE (FILTRI + GALLERY) */
+.auto {
+  display: flex;
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  gap: 2rem;
+  align-items: flex-start; /* Fondamentale per far funzionare position: sticky */
+}
+
+/* Sidebar Filtri */
+.filter-bar {
+  position: sticky;
+  top: 2rem; /* Distanza dal bordo superiore della finestra durante lo scroll */
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 280px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  max-height: calc(100vh - 4rem); /* Previene il taglio dei campi su schermi bassi */
+  overflow-y: auto; /* Aggiunge scroll interno se i campi superano l'altezza dello schermo */
+}
+
+.filter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.filter-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.filter-field input,
+.filter-field select {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+/* Pulsanti */
+.btn {
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 10px 18px;
+  border-radius: 4px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-weight: 600;
+}
+
+.gallery-meta {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+}
+
+/* Grid per le card di avvistamento */
+.gallery-main {
+  flex-grow: 1;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/*  CARD AVVISTAMENTO */
+.spot-card {
+  background-color: var(--color-4);
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.spot-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.spot-photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-color: #f1f3f5;
+  overflow: hidden;
+}
+
+.spot-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.spot-photo.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #adb5bd;
+}
+
+/* Badge Targa */
+.plate-badge {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  display: flex;
+  background: #ffffff;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-family: monospace;
+  font-weight: bold;
+  font-size: 0.85rem;
+}
+
+.plate-strip {
+  background-color: #003399;
+  width: 12px;
+}
+
+.plate-text {
+  padding: 4px 8px;
+  color: #212529;
+}
+
+/* Badge Anno */
+.spot-year-tag {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(0, 0, 0, 0.7);
+  color: #ffffff;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Corpo Card */
+.spot-body {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  flex-grow: 1;
+}
+
+.spot-title {
+  margin: 0 0 8px 0;
+  font-size: 1.15rem;
+  color: #212529;
+}
+
+.spot-desc {
+  margin: 0 0 12px 0;
+  font-size: 0.9rem;
+  color: #495057;
+}
+
+.spot-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #495057;
+  margin-bottom: 16px;
+  align-items: center;
+}
+
+.tag-chip {
+  background-color: #ffffff;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-1);
+}
+
+.spot-footer {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.spot-author {
+  font-weight: 600;
+  color: var(--color-1);
+  font-size: 0.9rem;
+}
+
+.delete-btn {
+  background: none;
+  border: 1px solid #dc3545;
+  color: #dc3545;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.delete-btn:hover {
+  background: #dc3545;
+  color: #ffffff;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+}
+
+.empty-state svg {
+  width: 64px;
+  height: 40px;
+  margin-bottom: 1rem;
+}
+
+/* 
+   FOOTER
+ */
+.site-footer {
+  text-align: center;
+  padding: 1.5rem;
+  background-color: var(--color-1);
+  color: var(--color-3);
+  font-size: 0.9rem;
+}
+
